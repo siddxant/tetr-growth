@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Case study: how Tetr went from being called too good to be true to a globally recognised university.">
+<style>html{color-scheme:light dark}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Too Good to Be True</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: narrative growth case study. Perception problem → channel experiments → the flywheel that worked → three-year shift → what's next. */
+:root{
+  --bg:#faf7f2; --surface:#ffffff; --surface-2:#f1ece3; --line:#e2dbcf; --line-strong:#c6bcab;
+  --fg:#1d1a16; --muted:#5f5a52; --faint:#948d82;
+  --accent:#b9501c; --accent-ink:#ffffff; --accent-soft:#f6e3d6;
+  --ok:#1f7a3a; --ok-soft:#dff3e3; --warn:#9a6300; --warn-soft:#fff1cc; --bad:#b3261e; --bad-soft:#fde3e0; --info:#2a5aa8; --info-soft:#e2ebfa;
+  --nav:#1d1a16; --nav-ink:#ece7df; --mask:#d7cfc1;
+  --display:"Sora",ui-sans-serif,system-ui,sans-serif; --body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --radius:10px; --shadow:0 18px 50px -24px rgba(29,26,22,.35);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141210; --surface:#1c1915; --surface-2:#26221d; --line:#352f28; --line-strong:#4d453b;
+  --fg:#efeae2; --muted:#aaa296; --faint:#7c7569;
+  --accent:#f0905c; --accent-ink:#1d1a16; --accent-soft:#3d2719;
+  --ok:#5fd07f; --ok-soft:#163d22; --warn:#f0c04a; --warn-soft:#3f3110; --bad:#ff8a80; --bad-soft:#4a1d1a; --info:#86aef0; --info-soft:#1c2d4c;
+  --nav:#0c0b09; --nav-ink:#d6d0c6; --mask:#3b352d; --shadow:0 18px 50px -24px rgba(0,0,0,.8); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#141210; --surface:#1c1915; --surface-2:#26221d; --line:#352f28; --line-strong:#4d453b;
+  --fg:#efeae2; --muted:#aaa296; --faint:#7c7569;
+  --accent:#f0905c; --accent-ink:#1d1a16; --accent-soft:#3d2719;
+  --ok:#5fd07f; --ok-soft:#163d22; --warn:#f0c04a; --warn-soft:#3f3110; --bad:#ff8a80; --bad-soft:#4a1d1a; --info:#86aef0; --info-soft:#1c2d4c;
+  --nav:#0c0b09; --nav-ink:#d6d0c6; --mask:#3b352d; --shadow:0 18px 50px -24px rgba(0,0,0,.8); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--accent)}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.sec-title{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.01em;margin-top:8px}
+.lead{font-size:19px;color:var(--muted);margin-top:16px;max-width:36em}
+.prose{max-width:38em;color:var(--muted);display:grid;gap:14px;margin-top:16px}
+.prose b{color:var(--fg);font-weight:600}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;line-height:1.5;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.warn{background:var(--warn-soft);color:var(--warn)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.info{background:var(--info-soft);color:var(--info)}.pill.grey{background:var(--surface-2);color:var(--muted)}
+
+/* nav */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px;text-decoration:none;color:var(--fg)}
+.brand .mark{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.top nav a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:600;padding:6px 10px;border-radius:6px;white-space:nowrap}
+.top nav a:hover,.top nav a:focus-visible{background:var(--surface-2);color:var(--fg);outline:none}
+@media (max-width:760px){.top .wrap{flex-wrap:wrap;gap:8px}.top nav{width:100%;margin:0 -4px;padding:0 4px 2px}.top nav a{font-size:13px;padding:5px 8px}}
+
+/* hero */
+.hero{padding-block:64px 48px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(36px,5.2vw,58px);margin-top:12px;letter-spacing:-.02em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--line-strong);color:var(--muted);background:var(--surface)}
+.chip.on{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.impact{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.impact div{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:14px 16px}
+.impact b{display:block;font-family:var(--display);font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.impact span{font-size:13px;color:var(--muted);line-height:1.3;display:block;margin-top:2px}
+@media (max-width:1024px){.hero .wrap{gap:32px}.impact{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){.hero{padding-block:44px 36px}.hero .wrap{grid-template-columns:1fr}}
+
+/* perception then / now (hero art) */
+.perc{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;min-width:0}
+.perc .col{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;display:grid;gap:8px;align-content:start}
+.perc .col.now{border:2px solid var(--accent)}
+.perc .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.perc .now .lbl{color:var(--accent)}
+.q{font-size:13.5px;padding:8px 10px;border-radius:8px;background:var(--surface-2);color:var(--muted);font-style:italic}
+.q.hi{background:var(--accent-soft);color:var(--fg);font-style:normal;font-weight:600}
+.perc .arrow{font-family:var(--display);font-size:24px;color:var(--accent);align-self:center}
+@media (max-width:480px){.perc{grid-template-columns:1fr}.perc .arrow{text-align:center;transform:rotate(90deg)}}
+
+/* sections */
+section.block{padding-block:64px;border-top:1px solid var(--line)}
+section.block.alt{background:var(--surface)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+@media (max-width:1024px){section.block{padding-block:48px}.two{gap:32px}}
+@media (max-width:860px){.two{grid-template-columns:1fr;gap:28px}}
+@media (max-width:640px){section.block{padding-block:40px}body{font-size:16px}.lead{font-size:17px}}
+
+/* problem cards */
+.pain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.pain div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.pain h3{font-size:16px;margin-bottom:8px}
+.pain p{font-size:15px;color:var(--muted)}
+.pain .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--bad);text-transform:uppercase;margin-bottom:10px;display:block}
+@media (max-width:760px){.pain{grid-template-columns:1fr}}
+
+/* channel scorecard */
+.chan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.ch{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:10px;align-content:start;border-top:3px solid var(--line-strong)}
+.ch.win{border-top-color:var(--ok)}.ch.bet{border-top-color:var(--info)}.ch.stall{border-top-color:var(--warn)}
+.ch h3{font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ch p{font-size:15px;color:var(--muted)}
+.ch .meter{display:grid;grid-template-columns:90px 1fr;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.ch .meter i{display:block;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;position:relative}
+.ch .meter i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--accent);border-radius:4px}
+.ch .verdict{font-size:13px;font-weight:600;padding-top:8px;border-top:1px dashed var(--line)}
+@media (max-width:900px){.chan{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.chan{grid-template-columns:1fr}}
+
+/* matrix */
+.matrix{margin-top:36px;}.hero-chart{margin-top:0;min-width:0}.matrix{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.matrix h3{font-size:18px;margin-bottom:4px}
+.matrix p{font-size:14px;color:var(--muted);margin-bottom:14px}
+.matrix svg{width:100%;height:auto;max-width:100%;display:block;font-family:var(--body)}
+
+/* flywheel */
+.fly{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;margin-top:28px}
+.fly svg{width:100%;height:auto;max-width:100%;display:block;font-family:var(--body)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi b{font-family:var(--display);font-size:30px;letter-spacing:-.02em;display:block;color:var(--accent);font-variant-numeric:tabular-nums}
+.kpi span{font-size:13.5px;color:var(--muted);display:block;margin-top:2px}
+@media (max-width:860px){.fly{grid-template-columns:1fr}}
+@media (max-width:420px){.kpis{grid-template-columns:1fr}}
+
+/* timeline of perception */
+.years{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.yr{padding:22px 20px;border-right:1px solid var(--line)}
+.yr:last-child{border-right:0}
+.yr .n{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.12em}
+.yr h3{font-size:18px;margin-top:6px}
+.yr .heard{margin-top:10px;font-size:14px;font-style:italic;color:var(--muted);padding:8px 10px;border-left:3px solid var(--line-strong);background:var(--surface-2);border-radius:0 6px 6px 0}
+.yr ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--muted)}
+.yr li{display:flex;gap:8px}.yr li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px}
+@media (max-width:760px){.years{grid-template-columns:1fr}.yr{border-right:0;border-bottom:1px solid var(--line)}.yr:last-child{border-bottom:0}}
+
+/* markets */
+.mk{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+.mkt{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.mkt h3{font-size:18px;display:flex;align-items:center;gap:10px}
+.mkt h3 i{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--accent);font-style:normal}
+.mkt ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--muted)}
+.mkt li{display:flex;gap:8px}.mkt li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px}
+@media (max-width:760px){.mk{grid-template-columns:1fr}}
+.events{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.events div{background:var(--surface-2);border-radius:8px;padding:12px 14px}
+.events b{font-family:var(--display);font-size:22px;display:block;color:var(--accent)}
+.events span{font-size:13px;color:var(--muted)}
+@media (max-width:480px){.events{grid-template-columns:1fr}}
+
+/* levers */
+.levers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:28px}
+.lever{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:6px;align-content:start}
+.lever .n{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em}
+.lever h3{font-size:15px}
+.lever p{font-size:13.5px;color:var(--muted)}
+.lever .pill{justify-self:start}
+@media (max-width:1024px){.levers{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.levers{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.levers{grid-template-columns:1fr}}
+
+
+/* thirds */
+.thirds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.third{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:var(--radius);padding:20px;display:grid;gap:12px;align-content:start}
+.third.pm{border-top-color:var(--warn)}
+.third h3{font-size:18px}
+.ring{display:flex;align-items:center;gap:10px}
+.ring i{width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--accent) 0 calc(var(--p)*1%),var(--surface-2) 0);display:block;position:relative}
+.ring i::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--surface)}
+.ring span{font-family:var(--display);font-size:30px;font-weight:700;color:var(--accent)}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;background:var(--nav);color:#fff;border-radius:8px;padding:14px 16px}
+.big b{font-family:var(--display);font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.big small{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.8;grid-row:2}
+.third.pm .big{background:var(--warn)}
+.third ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px;color:var(--muted)}
+.third li{display:flex;gap:8px}.third li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:9px}
+.third.pm li::before{background:var(--warn)}
+@media (max-width:900px){.thirds{grid-template-columns:1fr}}
+/* creators */
+.cblock{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-width:0}
+.cblock h3{font-size:18px}
+.cblock>p{font-size:15px;color:var(--muted);margin-top:8px}
+ .traced{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:6px}
+.traced li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.traced li span{color:var(--muted)}.traced li b{font-family:var(--display);font-size:14px}.traced li em{font-style:normal;color:var(--muted)}
+.traced li.hi{background:var(--accent-soft);border-color:transparent}.traced li.hi em{color:var(--accent);font-weight:600}
+@media (max-width:480px){.traced li{grid-template-columns:1fr;gap:2px}}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:14px;color:var(--muted)}
+.facts b{color:var(--fg);font-family:var(--display)}
+.engine{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.engine div{background:var(--surface-2);border-radius:8px;padding:14px 16px}
+.engine b{font-family:var(--display);font-size:24px;display:block;color:var(--accent)}
+.engine span{font-size:13.5px;color:var(--muted)}
+@media (max-width:640px){.engine{grid-template-columns:1fr}}
+
+/* outcome */
+.out-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
+.out{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;border-top:3px solid var(--accent)}
+.out b{font-family:var(--display);font-size:36px;letter-spacing:-.02em;display:block;color:var(--accent)}
+.out span{font-size:14px;color:var(--muted);display:block;margin-top:4px}
+.learn{margin-top:36px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.learn div{padding:18px;background:var(--surface-2);border-radius:var(--radius);font-size:15px;color:var(--muted)}
+.learn h3{font-size:16px;color:var(--fg);margin-bottom:6px}
+@media (max-width:860px){.out-grid,.learn{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.out-grid,.learn{grid-template-columns:1fr}.out b{font-size:30px}}
+
+footer{padding-block:40px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark">T</span>Building Tetr's Global Credibility</a>
+    <nav aria-label="Sections">
+      <a href="#problem">Starting point</a><a href="#channels">Channels</a><a href="#engines">Three engines</a><a href="#flywheel">The flywheel</a><a href="#creators">Creators</a><a href="#shift">Three years</a><a href="#next">What's next</a><a href="#outcome">Outcome</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Case study · Tetr · Growth · 2023 to 2026</p>
+      <h1>From being called "too good to be true" to a globally recognised university</h1>
+      <p class="lead">How Tetr built credibility in the US, Europe and China in three years: the channels we tested, the ones we dropped, and the partner-school, creator and performance engines that now each bring in a third of admissions.</p>
+      <div class="chips"><span class="chip on">Growth</span><span class="chip">Brand &amp; perception</span><span class="chip">Channel strategy</span><span class="chip">B2B partnerships</span><span class="chip">Market entry</span></div>
+      <div class="impact">
+        <div><b>600%</b><span>growth in student count over 3 years</span></div>
+        <div><b>1,600+</b><span>partner schools across 115 countries</span></div>
+        <div><b>260M+</b><span>views through creator partnerships</span></div>
+        <div><b>3 × ⅓</b><span>admissions split evenly across three engines</span></div>
+      </div>
+    </div>
+    <div class="matrix hero-chart" aria-label="Channel matrix: repeatability versus trust built">
+      <h3>Where each channel landed</h3>
+      <p>Does it repeat without starting from zero, and does it build trust or only reach? Position is qualitative.</p>
+      <svg viewBox="0 0 760 420" role="img" aria-label="Channel matrix: repeatability versus trust built">
+        <defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="currentColor"/></marker></defs>
+        <g stroke="var(--line)" stroke-width="1"><line x1="80" y1="40" x2="80" y2="360"/><line x1="80" y1="360" x2="720" y2="360"/><line x1="400" y1="40" x2="400" y2="360" stroke-dasharray="4 6"/><line x1="80" y1="200" x2="720" y2="200" stroke-dasharray="4 6"/></g>
+        <rect x="400" y="40" width="320" height="160" fill="var(--accent)" opacity=".07"/>
+        <text x="90" y="30" font-size="12" fill="var(--faint)" font-family="var(--mono)">TRUST BUILT ↑</text>
+        <text x="716" y="384" font-size="12" fill="var(--faint)" text-anchor="end" font-family="var(--mono)">REPEATABLE →</text>
+        <text x="710" y="60" font-size="12" fill="var(--accent)" text-anchor="end" font-weight="600">Compounds</text>
+        <text x="90" y="350" font-size="12" fill="var(--faint)">Rented attention</text>
+        <g font-size="13" fill="var(--fg)" font-weight="600">
+          <circle cx="660" cy="70" r="9" fill="var(--ok)"/><text x="645" y="75" text-anchor="end">Word of mouth &amp; outcomes</text>
+          <circle cx="640" cy="105" r="9" fill="var(--ok)"/><text x="625" y="110" text-anchor="end">B2B schools &amp; counsellors</text>
+          <circle cx="540" cy="125" r="9" fill="var(--ok)"/><text x="525" y="130" text-anchor="end">Offline events</text>
+          <circle cx="580" cy="150" r="9" fill="var(--ok)"/><text x="565" y="155" text-anchor="end">Creator partnerships &amp; student content</text>
+          <circle cx="590" cy="260" r="9" fill="var(--info)"/><text x="605" y="265">Performance marketing</text>
+          <circle cx="210" cy="275" r="9" fill="var(--warn)"/><text x="225" y="280">One-off influencer posts</text>
+        </g>
+        <path d="M320 300 C 400 330, 500 320, 575 268" fill="none" stroke="var(--info)" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#ah)" style="color:var(--info)"/>
+        <text x="330" y="318" font-size="11.5" fill="var(--info)">performance marketing, repositioned as a long-term channel</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Starting point -->
+<section class="block" id="problem">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <p class="eyebrow">The starting point</p>
+        <h2 class="sec-title">A global programme that the world read as a local one</h2>
+        <div class="prose">
+          <p>Tetr was designed as a global institution from day one: students rotate across campuses in several countries and build real businesses as part of the programme. But in our first year, the market did not see that. We were founded from India, our early team was in India, and to a parent in Texas or a counsellor in Munich, <b>that was the whole story.</b></p>
+          <p>Credibility is the whole product in higher education. Families are making a four-year, high-cost decision about a brand with no alumni, no rankings and no campus they could visit. Every channel we tried had to answer one question first: <b>why should I trust you?</b></p>
+        </div>
+      </div>
+      <div class="pain" style="margin-top:0;grid-template-columns:1fr">
+        <div><span class="k">Perception</span><h3>Geography defined the brand</h3><p>"Indian institution" came before "global programme" in every first conversation, regardless of what the curriculum actually was.</p></div>
+        <div><span class="k">Proof</span><h3>No proof points yet</h3><p>No graduates, no outcomes, no peer references. Only our own claims, which is the weakest form of evidence a family can be given.</p></div>
+        <div><span class="k">Channels</span><h3>Paid reach without trust</h3><p>Ads could get attention in the US and Europe, but attention without credibility converted into questions, not applications.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Channels -->
+<section class="block alt" id="channels">
+  <div class="wrap">
+    <p class="eyebrow">What we tried</p>
+    <h2 class="sec-title">Six channels, tested honestly, four kept</h2>
+    <p class="lead">We ran every channel long enough to learn whether it compounded. The ones that built trust stayed. The ones that only rented attention were cut or repositioned.</p>
+    <div class="chan">
+      <div class="ch win"><h3>B2B: schools &amp; counsellors <span class="pill ok">Biggest driver</span></h3><p>Long-term relationships with school counsellors and admissions agents. One school's first application turns into repeat applications year after year.</p><div class="meter"><span>Repeatable</span><i style="--v:95%"></i></div><div class="meter"><span>Trust built</span><i style="--v:95%"></i></div><div class="verdict">Scaled the team from 8 to 23. Now the core engine.</div></div>
+      <div class="ch win"><h3>Word of mouth &amp; outcomes <span class="pill ok">Compounding</span></h3><p>Student ventures, placements and the stories families tell each other. Slowest to start, strongest once it moves.</p><div class="meter"><span>Repeatable</span><i style="--v:90%"></i></div><div class="meter"><span>Trust built</span><i style="--v:100%"></i></div><div class="verdict">Turns every graduating cohort into next year's best channel.</div></div>
+      <div class="ch bet"><h3>Performance marketing <span class="pill info">Long-term bet</span></h3><p>Early on it bought attention but not belief. With proof points in place, it now works as the top of a funnel that B2B and word of mouth close.</p><div class="meter"><span>Repeatable</span><i style="--v:80%"></i></div><div class="meter"><span>Trust built</span><i style="--v:35%"></i></div><div class="verdict">Now a third of admissions, localised across 19 target countries.</div></div>
+      <div class="ch stall"><h3>One-off influencer posts <span class="pill warn">Stagnant</span></h3><p>Paid single posts bought spikes of reach that did not repeat. Each campaign started with a new creator, a new audience and no accumulated trust.</p><div class="meter"><span>Repeatable</span><i style="--v:20%"></i></div><div class="meter"><span>Trust built</span><i style="--v:30%"></i></div><div class="verdict">Dropped in favour of long-form, integrated creator partnerships.</div></div>
+      <div class="ch win"><h3>Offline events <span class="pill ok">Kept</span></h3><p>Student and parent events in priority cities. Expensive per head, but nothing builds trust faster than meeting the team and current students in person.</p><div class="meter"><span>Repeatable</span><i style="--v:70%"></i></div><div class="meter"><span>Trust built</span><i style="--v:85%"></i></div><div class="verdict">200 events across 17 locations, 1,500+ attendees.</div></div>
+      <div class="ch win"><h3>Creator partnerships &amp; student content <span class="pill ok">A third of admissions</span></h3><p>Creators who live the story on camera, in their own language, plus students documenting their journeys on their own channels. Reach that carries trust with it.</p><div class="meter"><span>Repeatable</span><i style="--v:80%"></i></div><div class="meter"><span>Trust built</span><i style="--v:85%"></i></div><div class="verdict">50+ creator partnerships in 10 languages, 260M+ views.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Flywheel -->
+<section class="block" id="flywheel">
+  <div class="wrap">
+    <p class="eyebrow">What worked</p>
+    <h2 class="sec-title">The B2B and word-of-mouth flywheel</h2>
+    <p class="lead">Credibility is borrowed before it is earned. A counsellor who recommends Tetr lends us their trust with the family. A student who does well lends us theirs with the next cohort. The platform work was to make that loop repeat on its own.</p>
+    <div class="fly">
+      <svg viewBox="0 0 520 520" role="img" aria-label="Flywheel: counsellor relationship, first application, student outcome, repeat applications, more counsellors">
+        <defs><marker id="fa" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>
+        <circle cx="260" cy="260" r="150" fill="none" stroke="var(--line-strong)" stroke-width="2" stroke-dasharray="6 8"/>
+        <g fill="none" stroke="var(--accent)" stroke-width="3" marker-end="url(#fa)">
+          <path d="M 330 128 A 150 150 0 0 1 392 260"/>
+          <path d="M 392 262 A 150 150 0 0 1 330 392"/>
+          <path d="M 190 392 A 150 150 0 0 1 128 262"/>
+          <path d="M 128 258 A 150 150 0 0 1 190 128"/>
+        </g>
+        <g font-size="13" font-weight="600" fill="var(--fg)" text-anchor="middle">
+          <g><rect x="180" y="70" width="160" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="260" y="93">Counsellor &amp; school</text><text x="260" y="112" font-weight="400" fill="var(--muted)" font-size="12">on-ground relationship</text></g>
+          <g><rect x="370" y="232" width="140" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="440" y="255">First application</text><text x="440" y="274" font-weight="400" fill="var(--muted)" font-size="12">from that school</text></g>
+          <g><rect x="180" y="394" width="160" height="56" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="260" y="417">Student outcome</text><text x="260" y="436" font-weight="400" fill="var(--muted)" font-size="12">venture, placement, story</text></g>
+          <g><rect x="10" y="232" width="140" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="80" y="255">Repeat applications</text><text x="80" y="274" font-weight="400" fill="var(--muted)" font-size="12">year after year</text></g>
+          <text x="260" y="250" font-family="var(--display)" font-size="15" fill="var(--accent)">Organic</text><text x="260" y="272" font-family="var(--display)" font-size="15" fill="var(--accent)">admissions flywheel</text>
+        </g>
+      </svg>
+      <div>
+        <div class="kpis">
+          <div class="kpi"><b>1,600+</b><span>partner schools across 115 countries</span></div>
+          <div class="kpi"><b>65+</b><span>NPS among partner schools, driving repeat referrals</span></div>
+          <div class="kpi"><b>42%</b><span>of students come from the same community, family or school as earlier cohorts</span></div>
+          <div class="kpi"><b>8</b><span>sibling pairs have chosen Tetr; team grew from 8 to 23 to run the engine</span></div>
+        </div>
+        <div class="prose" style="margin-top:20px">
+          <p>The mechanics are simple and slow: an on-ground team member builds a relationship with a counsellor, one family applies, that student does well, and the counsellor recommends again next year with more confidence. <b>Once a school sends its first student, it rarely stops.</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Three engines -->
+<section class="block" id="engines">
+  <div class="wrap">
+    <p class="eyebrow">Where admissions come from today</p>
+    <h2 class="sec-title">Three engines, a third each</h2>
+    <p class="lead">No single channel carries the brand. Partner schools, creators and organic content, and localised performance marketing each bring in roughly one in three admissions, so no market or platform shift can stall growth on its own.</p>
+    <div class="thirds">
+      <div class="third">
+        <div class="ring"><i style="--p:33.3"></i><span>⅓</span></div>
+        <h3>Partner schools</h3>
+        <div class="big"><b>1,600+</b><small>schools</small><b>115</b><small>countries</small></div>
+        <ul><li>NPS of 65+ among partner schools, driving admissions through direct referrals</li><li>42% of students come from the same community, family or school as a previous cohort</li><li>8 sibling pairs have already chosen Tetr</li></ul>
+      </div>
+      <div class="third">
+        <div class="ring"><i style="--p:33.3"></i><span>⅓</span></div>
+        <h3>Global creators &amp; organic reach</h3>
+        <div class="big"><b>260M+</b><small>cumulative views</small><b>50+</b><small>creators, 10 languages</small></div>
+        <ul><li>Long-form, integrated creator content rather than one-off posts</li><li>15M+ organic views from Tetr's own student creators</li><li>Organic student content drives 20% of admissions</li></ul>
+      </div>
+      <div class="third pm">
+        <div class="ring"><i style="--p:33.3"></i><span>⅓</span></div>
+        <h3>Performance marketing</h3>
+        <div class="big"><b>19</b><small>target countries</small><b>Local</b><small>creatives per market</small></div>
+        <ul><li>Country- and audience-specific campaigns across priority geographies</li><li>Localised creatives and messaging for each market</li><li>The lever for diversity of the cohort while growth continues</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Creators -->
+<section class="block alt" id="creators">
+  <div class="wrap">
+    <p class="eyebrow">Taking Tetr to the world</p>
+    <h2 class="sec-title">Creators tell the story in their language. Students tell it in theirs.</h2>
+    <p class="lead">Two kinds of content did what paid posts could not: creators embedded in the programme for long-form pieces, and students documenting their own journey on their own channels. Both carry trust because the audience already follows the person, not the brand.</p>
+    <div class="two" style="margin-top:28px">
+      <div class="cblock">
+        <h3>Partner-integrated creator content</h3>
+        <p>Creators across the UK, US, Latin America and Asia produced long-form pieces inside the programme: campus days, student ventures, the founders' story. Each piece is traceable to admissions, not just views.</p>
+        <ul class="traced">
+          <li><span>Creator, UK</span><b>5M+ views</b><em>10+ admissions</em></li>
+          <li><span>Creator, USA</span><b>12M+ views</b><em>30+ admissions</em></li>
+          <li><span>Creator, Latin America</span><b>21M+ views</b><em>10+ admissions</em></li>
+          <li class="hi"><span>Creator, Latin America</span><b>9M+ views</b><em>100+ admissions</em></li>
+        </ul>
+        <div class="facts"><span><b>50+</b> creator partnerships</span><span><b>10</b> languages</span><span><b>260M+</b> cumulative views</span></div>
+      </div>
+      <div class="cblock">
+        <h3>Student-led organic content</h3>
+        <p>Students share day-in-the-life videos, ventures and internships on their own channels. It builds a funnel in each student's home region without a media budget, and most leads from it are directly attributable.</p>
+        <ul class="traced">
+          <li><span>Day-in-the-life vlog</span><b>300k+ views</b><em>European student in India</em></li>
+          <li><span>Student venture clip</span><b>1M+ views</b><em>multicultural cohort</em></li>
+          <li><span>Internship story</span><b>460k+ views</b><em>motorsport placement</em></li>
+          <li class="hi"><span>Single personal clip</span><b>18M+ views</b><em>one student's channel</em></li>
+        </ul>
+        <div class="facts"><span><b>50+</b> student creators</span><span><b>15M+</b> organic views</span><span><b>30%</b> directly attributable referral</span></div>
+      </div>
+    </div>
+    <div class="engine">
+      <div><b>100+ hrs</b><span>of content produced weekly by the in-house engine</span></div>
+      <div><b>Most</b><span>followers added of any university in the period</span></div>
+      <div><b>20%</b><span>of admissions driven by organic student content</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Three year shift -->
+<section class="block" id="shift">
+  <div class="wrap">
+    <p class="eyebrow">How perception changed</p>
+    <h2 class="sec-title">Three years, three different conversations</h2>
+    <div class="years">
+      <div class="yr"><span class="n">YEAR 1 · PROVE WE EXIST</span><h3>Reach without trust</h3><div class="heard">"Is this an Indian college?"</div>
+        <ul><li>Broad performance campaigns and one-off influencer posts in the US and Europe</li><li>High attention, low conversion: every lead needed the credibility conversation from scratch</li><li>Started the first counsellor relationships by hand, city by city</li></ul></div>
+      <div class="yr"><span class="n">YEAR 2 · PROVE IT WORKS</span><h3>Borrowed credibility</h3><div class="heard">"A counsellor I trust mentioned you."</div>
+        <ul><li>Built the B2B team and the school network as the primary channel</li><li>Offline events in priority cities so families could meet students and the team</li><li>First student ventures and outcomes became the proof we had been missing</li></ul></div>
+      <div class="yr"><span class="n">YEAR 3 · PROVE WE'RE GLOBAL</span><h3>Earned credibility</h3><div class="heard">"Which campus are they in this term?"</div>
+        <ul><li>Dedicated US and China go-to-market teams with local content ecosystems</li><li>Long-form creator partnerships in 10 languages and students publishing their own journeys</li><li>Performance marketing re-entered as a long-term brand engine on top of proof</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- Next -->
+<section class="block alt" id="next">
+  <div class="wrap">
+    <p class="eyebrow">The playbook from here</p>
+    <h2 class="sec-title">Five levers for the next phase</h2>
+    <p class="lead">With credibility in place, growth shifts from winning trust to expanding what that trust can carry.</p>
+    <div class="levers">
+      <div class="lever"><span class="n">01</span><h3>New disciplines</h3><p>Expand beyond entrepreneurship, finance and AI into new schools of study.</p><span class="pill grey">3 planned in 2 years</span></div>
+      <div class="lever"><span class="n">02</span><h3>New programmes</h3><p>UG, PG, executive and short formats under each school.</p><span class="pill ok">Masters &amp; Exec launched 2025</span></div>
+      <div class="lever"><span class="n">03</span><h3>New geographies</h3><p>Deeper presence in priority markets, led by the US and China.</p><span class="pill info">Scaling</span></div>
+      <div class="lever"><span class="n">04</span><h3>B2B engine</h3><p>Keep the organic admissions flywheel turning through counsellors and agents.</p><span class="pill ok">Core channel</span></div>
+      <div class="lever"><span class="n">05</span><h3>Student outcomes</h3><p>Stronger ventures and placements create more pull for the next cohort.</p><span class="pill ok">Compounding</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Outcome -->
+<section class="block" id="outcome">
+  <div class="wrap">
+    <p class="eyebrow">Outcome</p>
+    <h2 class="sec-title">The brand now travels on other people's trust</h2>
+    <div class="out-grid">
+      <div class="out"><b>600%</b><span>growth in student count over three years</span></div>
+      <div class="out"><b>1,600+</b><span>partner schools sending students, across 115 countries</span></div>
+      <div class="out"><b>260M+</b><span>views through creator partnerships in 10 languages</span></div>
+      <div class="out"><b>200</b><span>offline events across 17 cities, 1,500+ families met in person</span></div>
+    </div>
+    <div class="learn">
+      <div><h3>Attention is not credibility</h3>Paid and influencer reach got us seen in the US and Europe. It did not get us believed. Trust had to be borrowed from counsellors and earned through outcomes first.</div>
+      <div><h3>Cut what doesn't repeat</h3>One-off influencer posts reset to zero every time. Counsellor relationships and embedded creator partnerships compound. We moved budget and headcount to the channels that remember us.</div>
+      <div><h3>Go local before going loud</h3>Priority markets only moved once they had their own teams, content and trusted voices. Performance marketing works now because there is proof underneath it.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Building Tetr's Global Credibility · Growth · 2023 to 2026</span>
+    <span>Figures are rounded; quotes are representative of conversations with families and counsellors.</span>
+  </div>
+</footer>
+
+</body>
+</html>
